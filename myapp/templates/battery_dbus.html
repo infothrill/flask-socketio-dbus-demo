@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block htmlhead %}
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<style>
+#batteryBody {
+    float: left;
+    width: 40px;
+    height: 15px;
+    border: 2px #CCC solid;
+}
+.batteryIconContainer {
+    width: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+.batteryEnd {
+    float: left;
+    height: 19px;
+    width: 3px;
+}
+.batteryEnd div {
+    width: 3px;
+    height: 7px;
+    margin-top: 6px;
+    margin-left: 1px;
+    background-color: #CCC;
+}
+#indicator {
+    height: 100%;
+    width: 50%;
+}
+#indicator.charging {
+    background-color: #BFFF00;
+}
+#indicator.notCharging {
+    background-color: #FFFF00;
+}
+</style>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+        var socket = io.connect('http://' + document.domain + ':' + location.port + '{{sio_namespace}}');
+        socket.on('{{sio_evt_battery_changed}}', function(msg) {
+			console.log(msg);
+            $('#log').append('<br>battery evt: ' + JSON.stringify(msg));
+	        var batteryIndicator = document.querySelector("#indicator");
+			   function updateBatteryNotification() {
+			       document.getElementById("level").textContent = msg.Percentage;
+			       document.getElementById("charging").textContent = (msg.Status) ? "charging" : "not charging";
+			       document.getElementById("chargingtime").textContent = msg.TimeToFull;
+			       document.getElementById("dischargingtime").textContent = msg.TimeToEmpty;
+				   // draw battery level
+			       batteryIndicator.style.width = msg.Percentage + "%";
+			       
+			       // check if battery is charging
+			       if (msg.Status) {
+			           setClass(batteryIndicator, "charging");
+			       } else {
+			           setClass(batteryIndicator, "notCharging");
+			       }
+			   }
+
+			   function setClass(element, classToAdd) {
+			       element.className = classToAdd;
+			   }
+			   updateBatteryNotification();
+        });
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+<h1>Battery Status</h1>
+<p>
+This page attempts to show the current battery status of the
+host <script>document.write(document.domain)</script>.
+</p>
+
+<div class="batteryIconContainer">
+  <div id="batteryBody">
+     <div id="indicator">
+     </div>
+  </div>
+  <div class="batteryEnd">
+    <div>
+    </div>
+  </div>
+</div>
+<br/>
+<div id="batteryStats">
+    Your battery level is <span id="level"></span>%.<br/>
+    Your battery is currently <span id="charging"></span>.<br/>
+    Your battery will be charged in <span id="chargingtime"></span> seconds.<br/>
+    Your battery will be discharged in <span id="dischargingtime"></span> seconds.<br/>
+</div>
+
+<h2>Implementation</h2>
+<p>
+This html page uses socket.io to establish an event listener for a "{{sio_evt_battery_changed}}"
+event. The server side, implement using Flask and Flask-SocketIO, establishes
+a background thread that attaches a signal handler for all detected batteries
+to the system DBUS and sends back the events to the browser.
+</p>
+
+<h2>Event log:</h2>
+<div id="log"></div>
+
+</div>
+{% endblock %}

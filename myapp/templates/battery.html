@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block htmlhead %}
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+<style>
+#batteryBody {
+    float: left;
+    width: 40px;
+    height: 15px;
+    border: 2px #CCC solid;
+}
+.batteryIconContainer {
+    width: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+.batteryEnd {
+    float: left;
+    height: 19px;
+    width: 3px;
+}
+.batteryEnd div {
+    width: 3px;
+    height: 7px;
+    margin-top: 6px;
+    margin-left: 1px;
+    background-color: #CCC;
+}
+#indicator {
+    height: 100%;
+    width: 50%;
+}
+#indicator.charging {
+    background-color: #BFFF00;
+}
+#indicator.notCharging {
+    background-color: #FFFF00;
+}
+</style>
+<script type="text/javascript" charset="utf-8">
+   $(document).ready(function(){
+	   var battery = navigator.battery || navigator.msBattery || navigator.mozBattery || navigator.webkitBattery || navigator.oBattery;
+	   var batteryIndicator = document.querySelector("#indicator");
+
+	   if (battery) {
+	       battery.addEventListener("chargingchange", updateBatteryNotification);
+	       battery.addEventListener("chargingtimechange", updateBatteryNotification);
+	       battery.addEventListener("dischargingtimechange", updateBatteryNotification);
+	       battery.addEventListener("levelchange", updateBatteryNotification);
+	       updateBatteryNotification();
+	   } else {
+	       // no battery support
+            document.getElementById("batteryStats").textContent = "Battery Status API is not available";
+	   }
+
+	   function updateBatteryNotification() {
+	       document.getElementById("level").textContent = battery.level * 100;
+	       document.getElementById("charging").textContent = (battery.charging) ? "charging" : "not charging";
+	       document.getElementById("chargingtime").textContent = battery.chargingTime;
+	       document.getElementById("dischargingtime").textContent = battery.dischargingTime;
+		   // draw battery level
+	       batteryIndicator.style.width = battery.level * 100 + "%";
+	       
+	       // check if battery is charging
+	       if (battery.charging) {
+	           setClass(batteryIndicator, "charging");
+	       } else {
+	           setClass(batteryIndicator, "notCharging");
+	       }
+	   }
+
+	   function setClass(element, classToAdd) {
+	       element.className = classToAdd;
+	   }
+});
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+<h1>Battery Status</h1>
+<p>This page shows the battery status of the device it is rendered on.
+</p>
+
+<div class="batteryIconContainer">
+  <div id="batteryBody">
+     <div id="indicator">
+     </div>
+  </div>
+  <div class="batteryEnd">
+    <div>
+    </div>
+  </div>
+</div>
+<br/>
+<div id="batteryStats">
+    Your battery level is <span id="level"></span>%.<br/>
+    Your battery is currently <span id="charging"></span>.<br/>
+    Your battery will be charged in <span id="chargingtime"></span> seconds.<br/>
+    Your battery will be discharged in <span id="dischargingtime"></span> seconds.<br/>
+</div>
+
+<h2>Implementation</h2>
+<p>
+It uses
+the <a href="http://www.w3.org/TR/battery-status/">W3 battery status API</a>.
+This API seems to be only supported on Firefox &gt;= 11 which is OK since
+LiteOS relies on newer Firefox versions. The status displayed on this page
+will refresh itself automatically when there are changes to the battery status.</p>
+</div>
+
+{% endblock %}

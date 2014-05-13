@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block htmlhead %}
+{% endblock %}
+{% block content %}
+<h1>Welcome</h1>
+
+<ul>
+<li><a href="{{url_for('battery')}}">battery status using the W3 web api</a></li>
+<li><a href="{{url_for('battery_dbus')}}">battery status using websockets, DBUS and Upower</a></li>
+{#<li><a href="{{url_for('wifi')}}">wifi access points</a></li>#}
+</ul>
+
+{% endblock %}
