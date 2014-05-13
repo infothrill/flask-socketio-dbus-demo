@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 '''
-This module provide s
+This module provides the glue between our main flask run program and the 
+sensors.tdbus_upower module, i.e. it exposes a minimal interface for
+starting an event loop to watch for battery events given only the function to
+emit websocket messages for the browser.
 
 @author: pkremer
 '''
