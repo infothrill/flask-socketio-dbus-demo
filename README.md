@@ -10,10 +10,10 @@ This only works on Linux, and was tested and developed on Ubuntu 13.10
 Installation on Ubuntu
 ----------------------
 
- # apt-get install python-virtualenv
- # virtualenv venv
- # source venv/bin/activate
- # pip install -r requirements.txt
+    # apt-get install python-virtualenv
+    # virtualenv venv
+    # source venv/bin/activate
+    # pip install -r requirements.txt
 
 Running it
 ----------
