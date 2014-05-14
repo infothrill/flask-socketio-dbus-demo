@@ -1,10 +1,10 @@
 What is this?
 -------------
-An demo (Flask)[http://flask.pocoo.org/] application that sends
-(websocket)[http://en.wikipedia.org/wiki/WebSocket]
+An demo [Flask](http://flask.pocoo.org/) application that sends
+[websocket](http://en.wikipedia.org/wiki/WebSocket)
 messages to the browser originating from the Linux
-(DBUS)[http://www.freedesktop.org/wiki/Software/dbus/],
-in this case from the (UPower)[http://upower.freedesktop.org/] daemon.
+[DBUS](http://www.freedesktop.org/wiki/Software/dbus/),
+in this case from the [UPower](http://upower.freedesktop.org/) daemon.
 There is only one relevant page in this demo so far, which shows the
 battery status of the host it is run on.
 
