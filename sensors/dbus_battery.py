@@ -3,11 +3,13 @@
 """
 This module has some functionality to interact with the system DBUS and UPower
 to find information about power devices. It should be noted that this module
-is not used within the bigger scope of this flask application, since it turns
-out that dbus-python depends on glib and ships a non thread safe main loop only
-which also seems to interfere with greenlets from Flask-SocketIO.
+is not used within this flask demo application, since it turns
+out that dbus-python depends on glib and ships a non thread safe main loop
+which seems to interfere with either the gevent loop from Flask-SocketIO or the
+flask main loop.
 
-For an implementation that seems to work with Flask-SocketIO, see tdbus_upower
+For an implementation that works with Flask-SocketIO, see tdbus_battery, which
+uses an alternative dbus binding called python-tdbus
 """
 
 import dbus
