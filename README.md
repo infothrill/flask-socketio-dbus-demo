@@ -13,10 +13,13 @@ This only works on Linux, and was tested and developed on Ubuntu 13.10
 Installation on Ubuntu
 ----------------------
 
-    # apt-get install python-virtualenv
+    # apt-get install python-dev python-virtualenv pkg-config libdbus-1-dev
+    # apt-get install upower pm-utils
     # virtualenv venv
     # source venv/bin/activate
     # pip install -r requirements.txt
+
+A sample vagrantfile is provided to get started quicker.
 
 Running it
 ----------

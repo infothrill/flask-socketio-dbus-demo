@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#import logging
+import sys
 from threading import Thread
 
 
@@ -16,4 +16,9 @@ Thread(
               SIO_EVT_BATTERY_CHANGED,
               SIO_SENSOR_NAMESPACE,)
        ).start()
-socketio.run(app)
+
+# allow specifying the IP to listen to, default localhost
+if len(sys.argv) > 1:
+    socketio.run(app, host=sys.argv[1])
+else:
+    socketio.run(app)
