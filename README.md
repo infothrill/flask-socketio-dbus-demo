@@ -39,6 +39,7 @@ Challenges encountered
 Useful links and further reading
 --------------------------------
 https://pypi.python.org/pypi/python-tdbus
+
 http://upower.freedesktop.org/
 
 Linux Journal article on DBUS:
