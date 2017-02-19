@@ -9,9 +9,10 @@ UPower on Linux
 
 import sys
 import logging
-from itertools import ifilter
+from six.moves import filter
 from functools import partial
 
+import six
 import tdbus
 
 # 'constants'
@@ -27,9 +28,8 @@ log = logging.getLogger(__name__)
 def convert_DBUS_to_python(val):
     '''
     quick hack to convert DBUS types to python types
-    TODO: make this python3 ready
     '''
-    if isinstance(val, (str, unicode,)):
+    if isinstance(val, (str, six.text_type,)):
         return str(val)
     elif isinstance(val, (int,)):
         return int(val)
@@ -186,7 +186,7 @@ def ibatteries(conn):
         log.debug("testing IsRechargeable for '%s'", device)
         return uPowerDeviceGet(conn, device, 'IsRechargeable')
 
-    return ifilter(partial(is_rechargeable, conn),
+    return filter(partial(is_rechargeable, conn),
                     uPowerEnumerateDevices(conn))
 
 

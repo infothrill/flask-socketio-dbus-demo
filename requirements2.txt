@@ -7,4 +7,4 @@ argparse==1.4.0
 eventlet==0.20.1
 itsdangerous==0.24
 python-tdbus==0.10
-six==1.10.0
+#wsgiref==0.1.2

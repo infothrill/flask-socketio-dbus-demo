@@ -1,5 +1,5 @@
-What is this?
--------------
+## What is this?
+
 An demo [Flask](http://flask.pocoo.org/) application that sends
 [websocket](http://en.wikipedia.org/wiki/WebSocket)
 messages to the browser originating from the Linux
@@ -8,36 +8,40 @@ in this case from the [UPower](http://upower.freedesktop.org/) daemon.
 There is only one relevant page in this demo so far, which shows the
 battery status of the host it is run on.
 
-This only works on Linux, and was tested and developed on Ubuntu 13.10
+This only works on Linux, was originally developed on Ubuntu 13.10, but also works on Ubuntu 16.04.
 
-Installation on Ubuntu
-----------------------
+## Installation on Ubuntu
 
-    # apt-get install python-dev python-virtualenv pkg-config libdbus-1-dev
-    # apt-get install upower pm-utils
-    # virtualenv venv
-    # source venv/bin/activate
-    # pip install -r requirements.txt
+See `provision.sh` for basic python and system dependencies.
 
-A sample vagrantfile is provided to get started quicker.
+```sh
+virtualenv -p python3 venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-Running it
-----------
+A sample `Vagrantfile` is provided to get started on Ubuntu 16.04.
+
+## Running it
+
 Start the webservice:
- 
-    # python run.py
 
-Challenges encountered
-----------------------
-- python-dbus doesn't work for this, because it can't be run in a subthread
-  while still using its mainloop
-- virtualenv/pip is required because:
-	- Flask-SocketIO not available in ubuntu 13.10
-	- python-tdbus not available in ubuntu 13.10
+```sh 
+python run.py 0.0.0.0
+```
 
+## Requirements
 
-Useful links and further reading
---------------------------------
+* DBUS
+* python2.7+ or python3.5+ (not sure about the versions in between, I never tried)
+
+## Challenges encountered
+
+- python-dbus didn't work for this, because it can't be run in a subthread
+  while still using its main loop
+
+## Useful links and further reading
+
 https://pypi.python.org/pypi/python-tdbus
 
 http://upower.freedesktop.org/

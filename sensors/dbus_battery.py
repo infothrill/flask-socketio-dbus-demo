@@ -48,7 +48,7 @@ class Battery(object):
         else:
             result = self.query()
             # for terminal demo purposes:
-            print result
+            print(result)
             return result
 
     def query(self):
