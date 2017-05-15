@@ -1,4 +1,4 @@
-Flask==0.12
+Flask==0.12.1
 Flask-SocketIO==2.8.4
 Jinja2==2.9.5
 MarkupSafe==0.23
