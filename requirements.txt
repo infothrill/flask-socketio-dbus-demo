@@ -2,7 +2,7 @@ Flask==0.12.1
 Flask-SocketIO==2.8.6
 Jinja2==2.9.6
 MarkupSafe==1.0
-Werkzeug==0.12.1
+Werkzeug==0.12.2
 argparse==1.4.0
 eventlet==0.21.0
 itsdangerous==0.24
