@@ -8,7 +8,7 @@ in this case from the [UPower](http://upower.freedesktop.org/) daemon.
 There is only one relevant page in this demo so far, which shows the
 battery status of the host it is run on.
 
-This only works on Linux, was originally developed on Ubuntu 13.10, but also works on Ubuntu 16.04.
+This only works on Linux, was originally developed on Ubuntu 13.10, but also works on Ubuntu 14.04.
 
 ## Installation on Ubuntu
 
@@ -20,7 +20,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-A sample `Vagrantfile` is provided to get started on Ubuntu 16.04.
+A sample `Vagrantfile` is provided to get started on Ubuntu 14.04 and 16.04.
 
 ## Running it
 

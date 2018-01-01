@@ -10,7 +10,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "bento/ubuntu-16.04"
+
+  config.vm.define "trusty" do |server|
+    server.vm.box = "ubuntu/trusty64"
+    server.vm.network "forwarded_port", guest: 5000, host: 8080
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "512"]
+        vb.customize ["modifyvm", :id, "--cpus", "1"]
+    end
+  end
+
+  config.vm.define "xenial" do |server|
+    server.vm.box = "bento/ubuntu-16.04"
+    server.vm.network "forwarded_port", guest: 5000, host: 8081
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "512"]
+        vb.customize ["modifyvm", :id, "--cpus", "1"]
+    end
+  end
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -21,7 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   #config.vm.network "forwarded_port", guest: 22, host: 2222
-  config.vm.network "forwarded_port", guest: 5000, host: 8080
+  #config.vm.network "forwarded_port", guest: 5000, host: 8080
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
