@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "xenial" do |server|
-    server.vm.box = "bento/ubuntu-16.04"
+    server.vm.box = "ubuntu/xenial64"
     server.vm.network "forwarded_port", guest: 5000, host: 8081
     server.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", "512"]
