@@ -1,10 +1,10 @@
-Flask==0.12.2
+Flask==1.0.2
 Flask-SocketIO==3.0.1
 Jinja2==2.10
 MarkupSafe==1.0
 Werkzeug==0.14.1
 argparse==1.4.0
-eventlet==0.21.0
+eventlet==0.23.0
 itsdangerous==0.24
 python-tdbus==0.11
 #wsgiref==0.1.2
